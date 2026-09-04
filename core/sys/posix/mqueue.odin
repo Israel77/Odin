@@ -131,7 +131,11 @@ foreign rt {
 	mq_setattr :: proc(mqdes: mqd_t, attr: ^mq_attr, old_attr: ^mq_attr) -> c.int ---
 }
 
-mqd_t :: distinct c.int
+when ODIN_OS == .FreeBSD {
+	mqd_t :: distinct rawptr
+} else {
+	mqd_t :: distinct c.int
+}
 
 when ODIN_OS == .NetBSD {
 	@(private)
